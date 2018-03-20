@@ -21,6 +21,7 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
     private int PES_CODIGO;
     private String PES_NOME;
     private String PES_SOBRENOME;
+    private String PES_FULL_NAME;
     private String PES_EMAIL;
     private String PES_CELULAR;
     private String PES_FONE;
@@ -29,7 +30,15 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
     private Long codigo;
     private final int MAX_LENGHT = 64;
     private final int MIN_LENGHT = 10;
-    private Erros erro;
+    private final Erros erro = new Erros();
+
+    public int getPesCodigo() {
+        return PES_CODIGO;
+    }
+    
+    public void setPesCodigo(String codigo){
+        this.PES_CODIGO = leia.nextInt();
+    }
 
     public String getPesNome() {
         return StringUtils.capitalize(PES_NOME);
@@ -50,8 +59,8 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
     public String getPesFone() {
         return PES_FONE;
     }
-    
-    public String getDDD(){
+
+    public String getDDD() {
         return DDD;
     }
 
@@ -66,11 +75,11 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
     public void setPesEmail(String email) {
         this.PES_EMAIL = leia.next();
     }
-    
-    public void setDDD(String ddd){
+
+    public void setDDD(String ddd) {
         this.DDD = leia.next();
     }
-    
+
     public void setPesCelular(String celular) {
         this.PES_CELULAR = leia.next();
     }
@@ -82,13 +91,33 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
     @Override
     public void entrada() {
         System.out.println("Digite Seu Nome: ");
-        setPesNome(PES_NOME);
-        System.out.println("Digite seu Sobre Nome: ");
-        setPesSobreNome(PES_SOBRENOME);
-        System.out.println("Digite seu E-mail");
+        validarNome();
+        System.out.println("Digite seu Sobrenome: ");
+        validarSobrenome();
+        fullName();
+        System.out.println("Digite seu E-mail: ");
         validarEmail();
-        System.out.println("Digite um Celular");
+        System.out.println("Digite um Celular(Sem DDD): ");
+        validarCelular();
+        System.out.println("Digite um Telefone Fixo: ");
+        setPesFone(PES_FONE);
         super.entrada();
+    }
+
+    @Override
+    public void imprimir() {
+        System.out.println("Nome Completo: " + PES_FULL_NAME);
+        System.out.println("E-mail: " + PES_EMAIL);
+        System.out.println("Celeular: " + PES_CELULAR);
+        System.out.println("Fone: " + PES_FONE);
+        super.imprimir();
+    }
+
+    public void fullName() {
+        PES_FULL_NAME = "";
+        String primeiro = getPesNome();
+        String segundo = getPesSobreNome();
+        PES_FULL_NAME = primeiro + " " + segundo;
     }
 
     public void validarEmail() {
@@ -104,7 +133,10 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
             } else if (!email.contains("@")) {
                 System.out.println(erro.getERRO_EMAIL3());
                 PES_EMAIL = "";
-            }else{
+            } else if (!email.contains(".com")) {
+                System.out.println(erro.getERRO_EMAIL3());
+                PES_EMAIL = "";
+            } else {
                 PES_EMAIL = email;
             }
 
@@ -119,17 +151,94 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
             Matcher matcher = pattern.matcher(cel);
             if (matcher.find()) {
                 System.out.println(erro.getERRO_NUMERO());
+                PES_CELULAR = "";
             } else if (cel.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
                 System.out.println(erro.getERRO_NUMERO());
-            } else if (cel.length() == 9){
+                PES_CELULAR = "";
+            } else if (cel.length() == 9) {
                 System.out.println("Digite seu DDD: ");
-                do{
-                    
-                }while(DDD.isEmpty());
-                setDDD(DDD);
-            }else{
-                PES_CELULAR = cel;
+                do {
+                    setDDD(DDD);
+                    String ddd = getDDD();
+                    Pattern patternDDD = Pattern.compile("\\W");
+                    Matcher matcherDDD = patternDDD.matcher(ddd);
+                    if (ddd.length() != 2) {
+                        System.out.println(erro.getERRO_DDD1());
+                        DDD = "";
+                    } else if (matcherDDD.find()) {
+                        System.out.println(erro.getERRO_DDD2());
+                        DDD = "";
+                    } else if (ddd.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                        System.out.println(erro.getERRO_DDD2());
+                        DDD = "";
+                    } else {
+                        DDD = ddd;
+                        PES_CELULAR = "(" + DDD + ")" + cel.substring(0, 5) + "-" + cel.substring(5);
+                    }
+                } while (DDD.isEmpty());
+            } else if (cel.length() == 8) {
+                String numeroCorrigido = "9" + getPesCelular();
+                PES_CELULAR = numeroCorrigido;
+                System.out.println("Digite seu DDD: ");
+                do {
+                    setDDD(DDD);
+                    String ddd = getDDD();
+                    Pattern patternDDD = Pattern.compile("\\W");
+                    Matcher matcherDDD = patternDDD.matcher(ddd);
+                    if (ddd.length() != 2) {
+                        System.out.println(erro.getERRO_DDD1());
+                        DDD = "";
+                    } else if (matcherDDD.find()) {
+                        System.out.println(erro.getERRO_DDD2());
+                        DDD = "";
+                    } else if (ddd.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                        System.out.println(erro.getERRO_DDD2());
+                        DDD = "";
+                    } else {
+                        DDD = ddd;
+                        PES_CELULAR = "(" + DDD + ")" + "9" + cel.substring(0, 4) + "-" + cel.substring(4);
+                    }
+                } while (DDD.isEmpty());
+
+            } else {
+                System.out.println(erro.getERRO_NUMERO1());
             }
         } while (PES_CELULAR.isEmpty());
+    }
+
+    public void validarNome() {
+        do {
+            setPesNome(PES_NOME);
+            String nome = getPesNome();
+            Pattern pattern = Pattern.compile("\\d");
+            Pattern pattern1 = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(nome);
+            Matcher matcher1 = pattern1.matcher(nome);
+            if (matcher.find()) {
+                System.out.println(erro.getERRO_NOME1());
+                PES_NOME = "";
+            } else if (matcher1.find()) {
+                System.out.println(erro.getERRO_NOME2());
+                PES_NOME = "";
+            }
+        } while (PES_NOME.isEmpty());
+    }
+
+    public void validarSobrenome() {
+        do {
+            setPesSobreNome(PES_SOBRENOME);
+            String sobreNome = getPesSobreNome();
+            Pattern pattern = Pattern.compile("\\d");
+            Pattern pattern1 = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(sobreNome);
+            Matcher matcher1 = pattern1.matcher(sobreNome);
+            if (matcher.find()) {
+                System.out.println(erro.getERRO_NOME1());
+                PES_SOBRENOME = "";
+            } else if (matcher1.find()) {
+                System.out.println(erro.getERRO_NOME2());
+                PES_SOBRENOME = "";
+            }
+        } while (PES_SOBRENOME.isEmpty());
     }
 }
