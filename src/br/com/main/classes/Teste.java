@@ -13,30 +13,13 @@ import br.com.main.classes.abstracts.Pessoa;
  */
 public class Teste extends Pessoa {
 
-    private String nome;
-
-    public Teste() {
-        this.nome = "";
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = leia.next();
-    }
-
     @Override
     public void entrada() {
-        System.out.println("Digite seu Nome: ");
-        setNome(nome);
         super.entrada();
     }
 
     @Override
     public void imprimir() {
-        System.out.println("Nome: " + nome);
         super.imprimir();
 
     }
