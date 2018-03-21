@@ -22,6 +22,7 @@ public class Main {
         
         Funcionario func = new Funcionario();
         func.entrada();
+        System.out.println("////////////////////////////////////////////////////");
         func.imprimir();
 
     }

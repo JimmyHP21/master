@@ -68,12 +68,14 @@ public class Funcionario extends Fisica implements ICadastro {
 
     @Override
     public void imprimir() {
+        super.imprimir();
         System.out.println("Data Admissão: " + FUN_DTADMISSAO);
         System.out.println("Data Demissão: " + FUN_DTDEMISSAO);
     }
 
     @Override
     public void entrada() {
+        super.entrada();
         System.out.println("Digite a Data de Admissão do Funcionario: ");
         validaDta();
         System.out.println("Digite a Data de Demissão do Funcionario: ");
