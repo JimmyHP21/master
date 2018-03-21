@@ -5,7 +5,8 @@
  */
 package br.com.main;
 
-import br.com.main.classes.Teste;
+import br.com.main.classes.Funcionario;
+
 
 /**
  *
@@ -18,11 +19,10 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Teste tt = new Teste();
-        tt.entrada();
-        System.out.println("//////////////////////////////////////////////////////////////////");
-        tt.imprimir();
         
+        Funcionario func = new Funcionario();
+        func.entrada();
+        func.imprimir();
 
     }
 

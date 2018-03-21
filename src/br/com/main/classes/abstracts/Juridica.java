@@ -59,8 +59,13 @@ public abstract class Juridica implements ICadastro {
             Matcher matcher = pattern.matcher(cnpj);
             if (cnpj.length() != 14) {
                 System.out.println(erro.getERRO_CNPJ());
+                PES_CNPJ = "";
             } else if (matcher.find()) {
                 System.out.println(erro.getERRO_CARACTER_PADRAO());
+                PES_CNPJ = "";
+            } else if (cnpj.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                PES_CNPJ = "";
             } else {
                 PES_CNPJ = cnpj.substring(0, 2)
                         + "." + cnpj.substring(2, 4)
@@ -80,12 +85,18 @@ public abstract class Juridica implements ICadastro {
             Matcher matcher = pattern.matcher(ins);
             if (matcher.find()) {
                 System.out.println(erro.getERRO_CARACTER_PADRAO());
+                PES_INSCEST = "";
             } else if (ins.length() != 12) {
                 System.out.println(erro.getERRO_INSCEST());
+                PES_INSCEST = "";
             } else if (ins.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
                 System.out.println(erro.getERRO_NUMERO_PADRAO());
+                PES_INSCEST = "";
             } else {
-                PES_INSCEST = ins;
+                PES_INSCEST = ins.substring(0, 3)
+                        + "." + ins.substring(3, 5)
+                        + "." + ins.substring(5, 7)
+                        + "." + ins.substring(7);
             }
         } while (PES_INSCEST.isEmpty());
     }
