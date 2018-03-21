@@ -5,23 +5,11 @@
  */
 package br.com.main.classes;
 
-import br.com.main.classes.abstracts.Pessoa;
-
 /**
  *
  * @author renanperes
  */
-public class Teste extends Pessoa {
-
-    @Override
-    public void entrada() {
-        super.entrada();
-    }
-
-    @Override
-    public void imprimir() {
-        super.imprimir();
-
-    }
-
+public class Pagar {
+    private String FIN_FORNECEDOR;
+    private String FIN_BOLETO;
 }

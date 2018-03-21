@@ -30,6 +30,21 @@ public class Erros {
     private final String ERRO_CARACTER_PADRAO = "Caracteres Invalidos!!Digite Novamente: ";
     private final String ERRO_INSCEST = "INSCEST invalido!! Digite Novamente: ";
     private final String ERRO_NUMERO_PADRAO = "Digite apenas Numeros!! Digite Novamente: ";
+    private final String ERRO_STRING_PADRAO = "Digite apenas letras!! Digite Novamente: ";
+    private final String ERRO_DATA_PADRAO = "Data Invalida!! Digite Novamente";
+    private final String ERRO_TAMANHO_DATA ="Data incorreta digite conforma mm/dd/aaaa!! Digite Novamente: ";
+    
+    public String getERRO_TAMANHO_DATA(){
+        return ERRO_TAMANHO_DATA;
+    }
+    
+    public String getERRO_DATA_PADRAO(){
+        return ERRO_DATA_PADRAO;
+    }
+    
+    public String getERRO_STRING_PADRAO(){
+        return ERRO_STRING_PADRAO;
+    }
     
     public String getERRO_NUMERO_PADRAO(){
         return ERRO_NUMERO_PADRAO;

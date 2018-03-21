@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  *
  * @author renanperes
  */
-public abstract class Fisica implements ICadastro {
+public abstract class Fisica extends Pessoa implements ICadastro {
 
     private String PES_CPF;
     private String PES_RG;
@@ -38,17 +38,20 @@ public abstract class Fisica implements ICadastro {
 
     @Override
     public void imprimir() {
+        super.imprimir();
+        System.out.println("-------PESSOA FISICA INFORMAÇÕES ADCIONAIS-------");
         System.out.println("CPF: " + PES_CPF);
         System.out.println("RG: " + PES_RG);
     }
 
     @Override
     public void entrada() {
+        super.entrada();
+        System.out.println("--------INFORMAÇÕES ADCIONAIS PESSOA FISICA--------");
         System.out.println("Digite seu CPF: ");
         validarCpf();
         System.out.println("Digite seu RG: ");
         validarRg();
-
     }
 
     public void validarCpf() {
@@ -57,7 +60,10 @@ public abstract class Fisica implements ICadastro {
             String cpf = getCPf();
             Pattern pattern = Pattern.compile("\\W");
             Matcher matcher = pattern.matcher(cpf);
-            if (matcher.find()) {
+            if (cpf.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                PES_CPF = "";
+            } else if (matcher.find()) {
                 System.out.println(erro.getERRO_CARACTER_PADRAO());
                 PES_CPF = "";
             } else if (cpf.length() != 11) {
@@ -65,24 +71,27 @@ public abstract class Fisica implements ICadastro {
                 PES_CPF = "";
             } else {
 //                ( XXX.XXX.XXX-XX ) 
-                PES_CPF = cpf.substring(0,3)+"."+cpf.substring(3,5)+"."+cpf.substring(5,7)+"-"+cpf.substring(7);
+                PES_CPF = cpf.substring(0, 3)
+                        + "." + cpf.substring(3, 5)
+                        + "." + cpf.substring(5, 7)
+                        + "-" + cpf.substring(7);
             }
 
         } while (PES_CPF.isEmpty());
     }
 
     public void validarRg() {
-        do{
+        do {
             setRg(PES_RG);
             String rg = getRg();
             Pattern pattern = Pattern.compile("\\W");
             Matcher matcher = pattern.matcher(rg);
-            if(matcher.find()){
+            if (matcher.find()) {
                 System.out.println(erro.getERRO_CARACTER_PADRAO());
-            }else{
+            } else {
                 PES_RG = rg;
             }
-        }while(PES_RG.isEmpty());
+        } while (PES_RG.isEmpty());
     }
 
 }
