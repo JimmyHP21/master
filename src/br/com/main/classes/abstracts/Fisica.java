@@ -60,7 +60,10 @@ public abstract class Fisica extends Pessoa implements ICadastro {
             String cpf = getCPf();
             Pattern pattern = Pattern.compile("\\W");
             Matcher matcher = pattern.matcher(cpf);
-            if (cpf.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+            if (cpf.length() != 11) {
+                System.out.println(erro.getERRO_TAMANHO_PADRAO());
+                PES_CPF = "";
+            } else if (cpf.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
                 System.out.println(erro.getERRO_NUMERO_PADRAO());
                 PES_CPF = "";
             } else if (matcher.find()) {
@@ -86,8 +89,12 @@ public abstract class Fisica extends Pessoa implements ICadastro {
             String rg = getRg();
             Pattern pattern = Pattern.compile("\\W");
             Matcher matcher = pattern.matcher(rg);
-            if (matcher.find()) {
+            if (rg.length() < 13) {
+                System.out.println(erro.getERRO_TAMANHO_PADRAO());
+                PES_RG = "";
+            } else if (matcher.find()) {
                 System.out.println(erro.getERRO_CARACTER_PADRAO());
+                PES_RG = "";
             } else {
                 PES_RG = rg;
             }

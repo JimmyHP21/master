@@ -33,6 +33,11 @@ public class Erros {
     private final String ERRO_STRING_PADRAO = "Digite apenas letras!! Digite Novamente: ";
     private final String ERRO_DATA_PADRAO = "Data Invalida!! Digite Novamente";
     private final String ERRO_TAMANHO_DATA ="Data incorreta digite conforma mm/dd/aaaa!! Digite Novamente: ";
+    private final String ERRO_TAMANHO_PADRAO = "Tamanho da Informções invalidas!! Digite Novamente: "; 
+    
+    public String getERRO_TAMANHO_PADRAO(){
+        return ERRO_TAMANHO_PADRAO;
+    }
     
     public String getERRO_TAMANHO_DATA(){
         return ERRO_TAMANHO_DATA;

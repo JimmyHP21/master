@@ -108,6 +108,7 @@ public class EnderecoNovo implements ICadastro, ICadastroUF, ICadastroCidade {
 
     @Override
     public void imprimir() {
+        System.out.println("-------------------ENDEREÇO-----------------------");
         System.out.println("Estado: " + uf + " - " + estado);
         System.out.println("Cidade: " + cidade);
         System.out.println("Bairro:" + bairro);
@@ -121,6 +122,7 @@ public class EnderecoNovo implements ICadastro, ICadastroUF, ICadastroCidade {
 
     @Override
     public void entrada() {
+        System.out.println("-------------------ENDEREÇO-----------------------");
         System.out.println("Digite a Sigra de seu Estado: ");
         validarUf();
         System.out.println("//////////////////////--///////////////////////////");
@@ -238,13 +240,13 @@ public class EnderecoNovo implements ICadastro, ICadastroUF, ICadastroCidade {
             String num = getNumero();
             Pattern pattern = Pattern.compile("\\W");
             Matcher matcher = pattern.matcher(num);
-            if(matcher.find()){
+            if (matcher.find()) {
                 System.out.println(erro.getERRO_CARACTER_PADRAO());
                 numero = "";
-            }else if (num.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")){
+            } else if (num.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
                 System.out.println(erro.getERRO_NUMERO_PADRAO());
                 numero = "";
-            }else{
+            } else {
                 numero = num;
             }
         } while (numero.isEmpty());

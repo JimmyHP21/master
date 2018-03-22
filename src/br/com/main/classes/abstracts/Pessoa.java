@@ -98,6 +98,7 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
 
     @Override
     public void entrada() {
+        System.out.println("--------------DADOS BASICOS--------------");
         System.out.println("Digite Seu Nome: ");
         validarNome();
         System.out.println("Digite seu Sobrenome: ");
@@ -114,6 +115,7 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
 
     @Override
     public void imprimir() {
+        System.out.println("---------------DADOS BASICOS--------------");
         System.out.println("Nome Completo: " + PES_FULL_NAME);
         System.out.println("E-mail: " + PES_EMAIL);
         System.out.println("Celeular: " + PES_CELULAR);
