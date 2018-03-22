@@ -6,8 +6,9 @@
 package br.com.main.classes;
 
 import br.com.main.Exceptions.Erros;
-import br.com.main.classes.abstracts.Fisica;
-import br.com.main.interfaces.ICadastro;
+import br.com.main.classes.abstracts.Juridica;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,129 +16,318 @@ import java.util.regex.Pattern;
  *
  * @author renanperes
  */
-public class Funcionario extends Fisica implements ICadastro {
+public class Fornecedor extends Juridica {
 
-    //Carteira de Trabalho e Previdência Social
-    private String FUN_CTPS;
-    private float FUN_SALARIO;
-    private String FUN_DTADMISSAO;
-    private String FUN_DTDEMISSAO;
-    private String dia;
-    private String mes;
+    private final SimpleDateFormat form = new SimpleDateFormat("dd/mm/YYYY");
+    private String FOR_CONTATO;
+    private String FOR_SITE;
+    private String FOR_LIMITECOMPRA;
+    private String FOR_DTCADASTRO;
     private String ano;
-    private boolean isDemitido = false;
-    private String optD;
+    private String mes;
+    private String dia;
+    private String conOpt;
+    private String DDD;
+    private boolean isTel = false;
+    private boolean isCel = false;
     private final Erros erro = new Erros();
 
-    public String getOptD() {
-        return optD;
+    public String getConOpt() {
+        return conOpt;
     }
 
-    public void setOptD(String optD) {
-        this.optD = leia.next();
+    public void setConOpt(String conOpt) {
+        this.conOpt = leia.next();
     }
 
-    public String getDia() {
-        return dia;
+    public String getDtcadastro() {
+        return FOR_DTCADASTRO;
     }
 
-    public String getMes() {
-        return mes;
+    public String getFOR_CONTATO() {
+        return FOR_CONTATO;
     }
 
-    public String getAno() {
-        return ano;
+    public void setFOR_CONTATO(String FOR_CONTATO) {
+        this.FOR_CONTATO = leia.next();
     }
 
-    public void setDia(String dia) {
-        this.dia = leia.next();
+    public String getFOR_SITE() {
+        return FOR_SITE;
     }
 
-    public void setMes(String mes) {
-        this.mes = leia.next();
+    public void setFOR_SITE(String FOR_SITE) {
+        this.FOR_SITE = leia.next();
+    }
+
+    public String getFOR_LIMITECOMPRA() {
+        return FOR_LIMITECOMPRA;
+    }
+
+    public void setFOR_LIMITECOMPRA(String FOR_LIMITECOMPRA) {
+        this.FOR_LIMITECOMPRA = leia.next();
+    }
+
+    public String getFOR_DTCADASTRO() {
+        return FOR_DTCADASTRO;
     }
 
     public void setAno(String ano) {
         this.ano = leia.next();
     }
 
-    public String getFUN_CTPS() {
-        return FUN_CTPS;
+    public void setMes(String mes) {
+        this.mes = leia.next();
     }
 
-    public void setFUN_CTPS(String FUN_CTPS) {
-        this.FUN_CTPS = leia.next();
+    public void setDia(String dia) {
+        this.dia = leia.next();
     }
 
-    public float getFUN_SALARIO() {
-        return FUN_SALARIO;
+    public String getAno() {
+        return ano;
     }
 
-    public void setFUN_SALARIO(float FUN_SALARIO) {
-        this.FUN_SALARIO = leia.nextFloat();
+    public String getMes() {
+        return mes;
     }
 
-    public String getFUN_DTADMISSAO() {
-        return FUN_DTADMISSAO;
+    public String getDia() {
+        return dia;
     }
 
-    public String getFUN_DTDEMISSAO() {
-        return FUN_DTDEMISSAO;
+    public String setDdd() {
+        return DDD;
     }
 
-    @Override
-    public void imprimir() {
-        super.imprimir();
-        System.out.println("---------------DADOS FUNCIONARIO--------------");
-        System.out.println("Data Admissão: " + FUN_DTADMISSAO);
-        if (isDemitido == false) {
-            System.out.println("Funcionario Trabalha na Empressa");
-        } else {
-            System.out.println("Data Demissão: " + FUN_DTDEMISSAO);
-        }
-
-        System.out.println("----------------------------------------------");
+    public void setDdd(String ddd) {
+        this.DDD = leia.next();
     }
 
     @Override
     public void entrada() {
         super.entrada();
-        System.out.println("---------------DADOS FUNCIONARIO--------------");
-        System.out.println("-------Data de Admissão do Funcionario--------");
-        System.out.print("Mês: ");
-        validarMes();
-        System.out.print("Dia: ");
-        validarDia();
-        System.out.print("Ano: ");
-        validarAno();
-        dtadmissao();
-        System.out.println("Funionario Foi Demitido: ");
-        System.out.println("[S] = SIM / [N] = NÃO");
+        System.out.println("-----------CADASTRAR FORNECEDOR------------");
+        System.out.println("Contato: ");
+        System.out.println("[1] = Celular / [2] = Telefone");
         System.out.print("|Opcão ---> ");
-        isDemitido();
-        if (isDemitido == true) {
-            System.out.println("-------Data de Demissão do Funcionario--------");
-            System.out.print("Mês: ");
-            validarMes();
-            System.out.print("Dia: ");
-            validarDia();
-            System.out.println("Ano: ");
-            validarAno();
-            dtdmissao();
+        validarContato();
+        System.out.println("Digite o site do Fornecedor: ");
+        siteValido();
+        System.out.println("Digite o limite da Compra: ");
+        limiteCompra();
+        System.out.println("Data do Cadastro: ");
+        System.out.println("Mês: ");
+        validarMes();
+        System.out.println("Dia: ");
+        validarDia();
+        System.out.println("Ano: ");
+        validarAno();
+        formataData();
+    }
+
+    @Override
+    public void imprimir() {
+        super.imprimir();
+        System.out.println("-------------DADOS FORNECEDOR--------------");
+        if (isCel == true) {
+            System.out.println("Celular: " + FOR_CONTATO);
+        } else if (isTel == true) {
+            System.out.println("Telefone: " + FOR_CONTATO);
         }
-
-        System.out.println("----------------------------------------------");
+        System.out.println("E-Mail Fornecedor: " + FOR_SITE);
+        System.out.println("Limite da Compra: " + FOR_LIMITECOMPRA);
+        System.out.println("Data do Cadastro: " + FOR_DTCADASTRO);
     }
 
-    public void dtadmissao() {
-        FUN_DTADMISSAO = dia + "/" + mes + "/" + ano;
-    }
-
-    public void dtdmissao() {
-        FUN_DTDEMISSAO = dia + "/" + mes + "/" + ano;
+    public void formataData() {
+        FOR_DTCADASTRO = dia + "/" + mes + "/" + ano;
     }
 
 //    "^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$"
+    public void validarContato() {
+        do {
+            setConOpt(conOpt);
+            String op = getConOpt();
+            Pattern pattern = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(op);
+            if (op.length() != 1) {
+                System.out.println();
+                conOpt = "";
+            } else if (matcher.find()) {
+                System.out.println(erro.getERRO_CARACTER_PADRAO());
+                conOpt = "";
+            } else if (op.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                conOpt = "";
+            } else {
+                conOpt = op;
+                switch (op) {
+                    case "1":
+                        isTel = false;
+                        isCel = true;
+                        isCel();
+                        break;
+                    case "2":
+                        isTel = true;
+                        isCel = false;
+                        isTel();
+                        break;
+                    default:
+                        System.out.println(erro.getERRO_OPCAO());
+                        conOpt = "";
+                        break;
+                }
+            }
+
+        } while (conOpt.isEmpty());
+    }
+
+    public void isTel() {
+        validarTelefone();
+    }
+
+    public void isCel() {
+        validarCelularFor();
+    }
+
+    public void validarCelularFor() {
+        System.out.println("Digite o numero para Contato: ");
+        do {
+            setFOR_CONTATO(FOR_CONTATO);
+            String cel = getFOR_CONTATO().toLowerCase();
+            Pattern pattern = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(cel);
+            if (matcher.find()) {
+                System.out.println(erro.getERRO_CARACTER_PADRAO());
+                FOR_CONTATO = "";
+            } else if (cel.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO());
+                FOR_CONTATO = "";
+            } else if (cel.length() == 9) {
+                System.out.println("Digite seu DDD: ");
+                do {
+                    setDDD(DDD);
+                    String ddd = getDDD();
+                    Pattern patternDDD = Pattern.compile("\\W");
+                    Matcher matcherDDD = patternDDD.matcher(ddd);
+                    if (ddd.length() != 2) {
+                        System.out.println(erro.getERRO_DDD1());
+                        DDD = "";
+                    } else if (matcherDDD.find()) {
+                        System.out.println(erro.getERRO_DDD2());
+                        DDD = "";
+                    } else if (ddd.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                        System.out.println(erro.getERRO_DDD2());
+                        DDD = "";
+                    } else {
+                        DDD = ddd;
+                        FOR_CONTATO = "(" + DDD + ")" + cel.substring(0, 5) + "-" + cel.substring(5);
+                    }
+                } while (DDD.isEmpty());
+            } else if (cel.length() == 8) {
+                String numeroCorrigido = "9" + getFOR_CONTATO();
+                FOR_CONTATO = numeroCorrigido;
+                System.out.println("Digite seu DDD: ");
+                do {
+                    setDDD(DDD);
+                    String ddd = getDDD();
+                    Pattern patternDDD = Pattern.compile("\\W");
+                    Matcher matcherDDD = patternDDD.matcher(ddd);
+                    if (ddd.length() != 2) {
+                        System.out.println(erro.getERRO_DDD1());
+                        DDD = "";
+                    } else if (matcherDDD.find()) {
+                        System.out.println(erro.getERRO_DDD2());
+                        DDD = "";
+                    } else if (ddd.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                        System.out.println(erro.getERRO_DDD2());
+                        DDD = "";
+                    } else {
+                        DDD = ddd;
+                        FOR_CONTATO = "(" + DDD + ")" + "9" + cel.substring(0, 4) + "-" + cel.substring(4);
+                    }
+                } while (DDD.isEmpty());
+
+            } else {
+                System.out.println(erro.getERRO_NUMERO1());
+            }
+        } while (FOR_CONTATO.isEmpty());
+    }
+
+    public void validarTelefone() {
+        System.out.println("Digite um telefone para Contato: ");
+        do {
+            setFOR_CONTATO(FOR_CONTATO);
+            String tel = getFOR_CONTATO();
+            Pattern pattern = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(tel);
+            if (tel.length() <= 0) {
+                System.out.println(erro.getERRO_TAMANHO_PADRAO());
+                FOR_CONTATO = "";
+            } else if (matcher.find()) {
+                System.out.println(erro.getERRO_CARACTER_PADRAO());
+                FOR_CONTATO = "";
+            } else if (tel.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                FOR_CONTATO = "";
+            } else {
+                ddd();
+                FOR_CONTATO = "(" + DDD + ")" + tel;
+            }
+
+        } while (FOR_CONTATO.isEmpty());
+
+    }
+
+    public void siteValido() {
+        do {
+            setFOR_SITE(FOR_SITE);
+            String site = getFOR_SITE();
+            boolean com = false;
+            boolean www = false;
+            if (!site.contains(".com") && !site.contains("www.")) {
+                www = true;
+                com = true;
+            } else if (!site.contains("www.")) {
+                www = true;
+            } else if (!site.contains(".com")) {
+                com = true;
+            } else {
+                FOR_SITE = site;
+            }
+            if (www == true && com == true) {
+                FOR_SITE = "www." + site.toLowerCase() + ".com";
+            } else if (www = true) {
+                FOR_SITE = "www." + site.toLowerCase();
+            } else if (com = true) {
+                FOR_SITE = site.toLowerCase() + ".com";
+            }
+        } while (FOR_SITE.isEmpty());
+    }
+
+    public void ddd() {
+        System.out.println("Digite seu DDD: ");
+        do {
+            setDDD(DDD);
+            String dd = getDDD();
+            Pattern pattern = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(dd);
+            if (dd.length() <= 0) {
+                System.out.println(erro.getERRO_TAMANHO_PADRAO());
+                DDD = "";
+            } else if (matcher.find()) {
+                System.out.println(erro.getERRO_CARACTER_PADRAO());
+                DDD = "";
+            } else if (dd.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                DDD = "";
+            } else {
+                DDD = dd;
+            }
+        } while (DDD.isEmpty());
+    }
+
     public void validarMes() {
         do {
             setMes(mes);
@@ -467,7 +657,6 @@ public class Funcionario extends Fisica implements ICadastro {
 
     }
 
-//    "^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$"
     public void validarAno() {
         do {
             setAno(ano);
@@ -492,38 +681,25 @@ public class Funcionario extends Fisica implements ICadastro {
         } while (ano.isEmpty());
     }
 
-    public void isDemitido() {
+    public void limiteCompra() {
         do {
-            setOptD(optD);
-            String op = getOptD().toUpperCase();
+            setFOR_LIMITECOMPRA(FOR_LIMITECOMPRA);
+            String compra = getFOR_LIMITECOMPRA();
             Pattern pattern = Pattern.compile("\\W");
-            Pattern pattern1 = Pattern.compile("\\d");
-            Matcher matcher = pattern.matcher(op);
-            Matcher matcher1 = pattern1.matcher(op);
-            if (op.length() != 1) {
+            Matcher matcher = pattern.matcher(compra);
+            if(compra.length() <= 0){
                 System.out.println(erro.getERRO_TAMANHO_PADRAO());
-                optD = "";
-            } else if (matcher.find()) {
+                FOR_LIMITECOMPRA = "";
+            }else if(matcher.find()){
                 System.out.println(erro.getERRO_CARACTER_PADRAO());
-                optD = "";
-            } else if (matcher1.find()) {
-                System.out.println(erro.getERRO_STRING_PADRAO());
-                optD = "";
-            } else {
-                optD = op;
-                switch (optD) {
-                    case "S":
-                        isDemitido = true;
-                        break;
-                    case "N":
-                        isDemitido = false;
-                        break;
-                    default:
-                        System.out.println();
-                        optD = "";
-                        break;
-                }
+                FOR_LIMITECOMPRA = "";
+            }else if(compra.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")){
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                FOR_LIMITECOMPRA = "";
+            }else{
+                FOR_LIMITECOMPRA = compra;
             }
-        } while (optD.isEmpty());
+        } while (FOR_LIMITECOMPRA.isEmpty());
     }
+
 }

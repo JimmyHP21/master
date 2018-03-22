@@ -32,8 +32,102 @@ public class Erros {
     private final String ERRO_NUMERO_PADRAO = "Digite apenas Numeros!! Digite Novamente: ";
     private final String ERRO_STRING_PADRAO = "Digite apenas letras!! Digite Novamente: ";
     private final String ERRO_DATA_PADRAO = "Data Invalida!! Digite Novamente";
-    private final String ERRO_TAMANHO_DATA ="Data incorreta digite conforma mm/dd/aaaa!! Digite Novamente: ";
+    private final String ERRO_TAMANHO_DATA ="Data incorreta digite conforme mm/dd/aaaa!! Digite Novamente: ";
     private final String ERRO_TAMANHO_PADRAO = "Tamanho da Informções invalidas!! Digite Novamente: "; 
+    private final String ERRO_DIA_JANEIRO = "Dia informado invalido!! Digite um dia correto (1 - 31)";
+    private final String ERRO_DIA_FEVEREIRO = "Dia informado invalido!! Digite um dia correto (1 - 28)";
+    private final String ERRO_DIA_MARCO = "Dia informado invalido!! Digite um dia correto (1 - 31)";
+    private final String ERRO_DIA_ABRIL = "Dia informado invalido!! Digite um dia correto (1 - 30)";
+    private final String ERRO_DIA_MAIO = "Dia informado invalido!! Digite um dia correto (1 - 31)";
+    private final String ERRO_DIA_JUNHO = "Dia informado invalido!! Digite um dia correto (1 - 30)";
+    private final String ERRO_DIA_JULHO = "Dia informado invalido!! Digite um dia correto (1 - 31)";
+    private final String ERRO_DIA_AGOSTO = "Dia informado invalido!! Digite um dia correto (1 - 31)";
+    private final String ERRO_DIA_SETEMBRO = "Dia informado invalido!! Digite um dia correto (1 - 30)";
+    private final String ERRO_DIA_OUTUBRO = "Dia informado invalido!! Digite um dia correto (1 - 31)";
+    private final String ERRO_DIA_NOVEMBRO = "Dia informado invalido!! Digite um dia correto (1 - 30)";
+    private final String ERRO_DIA_DEZEMBRO = "Dia informado invalido!! Digite um dia correto (1 - 31)";
+    private final String ERRO_MES_INVALIDO = "Digite um mês valido (1 - 12)!! Digite Novamente: ";
+    private final String ERRO_ANO_INVALIDO1 ="Ano Invalido, Dado Superior ao atual!! Digite Novamante: ";
+    private final String ERRO_ANO_INVALIDO2 ="Ano Invalido Digite conforme DIA/MES/XXXX!! Digite Novamente: ";
+    private final String ERRO_DIA_INVALIDO ="Dia Invalido Digite conforme XX/MES/ANO!! Digite Novamente: ";
+    private final String ERRO_LIMITE = "Limite não pode ser 0!! Digite Novamente: ";
+    private final String ERRO_DATA_PADRAO_FORMATO = "Digite a Data no Formato dd/mm/aaaa !!Digite Novamente: ";
+    private final String ERRO_SITE = "Site Invalido!! Digite Novamente";
+    
+    public String getERRO_DATA_PADRAO_FORMATO(){
+        return ERRO_DATA_PADRAO_FORMATO;
+    }
+    
+    public String getERRO_LIMITE(){
+        return ERRO_LIMITE;
+    }
+
+    public String getERRO_DIA_INVALIDO() {
+        return ERRO_DIA_INVALIDO;
+    }
+
+    
+    public String getERRO_ANO_INVALIDO1() {
+        return ERRO_ANO_INVALIDO1;
+    }
+
+    public String getERRO_ANO_INVALIDO2() {
+        return ERRO_ANO_INVALIDO2;
+    }
+
+    
+    public String getERRO_DIA_JANEIRO() {
+        return ERRO_DIA_JANEIRO;
+    }
+
+    public String getERRO_DIA_FEVEREIRO() {
+        return ERRO_DIA_FEVEREIRO;
+    }
+
+    public String getERRO_DIA_MARCO() {
+        return ERRO_DIA_MARCO;
+    }
+
+    public String getERRO_DIA_ABRIL() {
+        return ERRO_DIA_ABRIL;
+    }
+
+    public String getERRO_DIA_MAIO() {
+        return ERRO_DIA_MAIO;
+    }
+
+    public String getERRO_DIA_JUNHO() {
+        return ERRO_DIA_JUNHO;
+    }
+
+    public String getERRO_DIA_JULHO() {
+        return ERRO_DIA_JULHO;
+    }
+
+    public String getERRO_DIA_AGOSTO() {
+        return ERRO_DIA_AGOSTO;
+    }
+
+    public String getERRO_DIA_SETEMBRO() {
+        return ERRO_DIA_SETEMBRO;
+    }
+
+    public String getERRO_DIA_OUTUBRO() {
+        return ERRO_DIA_OUTUBRO;
+    }
+
+    public String getERRO_DIA_NOVEMBRO() {
+        return ERRO_DIA_NOVEMBRO;
+    }
+
+    public String getERRO_DIA_DEZEMBRO() {
+        return ERRO_DIA_DEZEMBRO;
+    }
+
+    public String getERRO_MES_INVALIDO() {
+        return ERRO_MES_INVALIDO;
+    }
+    
     
     public String getERRO_TAMANHO_PADRAO(){
         return ERRO_TAMANHO_PADRAO;
