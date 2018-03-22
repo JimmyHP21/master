@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  *
  * @author renanperes
  */
-public abstract class Juridica implements ICadastro {
+public abstract class Juridica extends Pessoa implements ICadastro {
 
     private String PES_CNPJ;
     private String PES_INSCEST;
@@ -38,12 +38,16 @@ public abstract class Juridica implements ICadastro {
 
     @Override
     public void imprimir() {
+        super.imprimir();
+        System.out.println("-------PESSOA JURIDICA INFORMAÇÕES ADCIONAIS-------");
         System.out.println("CNPJ: " + PES_CNPJ);
         System.out.println("INSCEST: " + PES_INSCEST);
     }
 
     @Override
     public void entrada() {
+        super.entrada();
+        System.out.println("--------INFORMAÇÕES ADCIONAIS PESSOA FISICA--------");
         System.out.println("Digite o CNPJ: ");
         validarCnpj();
         System.out.println("Digite o Inscest(Inscrição Estadual): ");

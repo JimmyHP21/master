@@ -89,10 +89,7 @@ public abstract class Fisica extends Pessoa implements ICadastro {
             String rg = getRg();
             Pattern pattern = Pattern.compile("\\W");
             Matcher matcher = pattern.matcher(rg);
-            if (rg.length() < 13) {
-                System.out.println(erro.getERRO_TAMANHO_PADRAO());
-                PES_RG = "";
-            } else if (matcher.find()) {
+            if (matcher.find()) {
                 System.out.println(erro.getERRO_CARACTER_PADRAO());
                 PES_RG = "";
             } else {

@@ -5,8 +5,9 @@
  */
 package br.com.main;
 
+import br.com.main.classes.Cliente;
+import br.com.main.classes.Fornecedor;
 import br.com.main.classes.Funcionario;
-
 
 /**
  *
@@ -19,12 +20,21 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
-        Funcionario func = new Funcionario();
-        func.entrada();
-        System.out.println("////////////////////////////////////////////////////");
-        func.imprimir();
 
+//        Funcionario func = new Funcionario();
+//        func.entrada();
+//        System.out.println("////////////////////////////////////////////////////");
+//        func.imprimir();
+
+//        Cliente cli = new Cliente();
+//        cli.entrada();
+//        System.out.println("////////////////////////////////////////////////////");
+//        cli.imprimir();
+
+          Fornecedor forn = new Fornecedor();
+          forn.entrada();
+          System.out.println("////////////////////////////////////////////////////");
+          forn.imprimir();
     }
 
 }
