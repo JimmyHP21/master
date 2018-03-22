@@ -24,6 +24,9 @@ public class Funcionario extends Fisica implements ICadastro {
     private String FUN_DTADMISSAO;
     private String dtd;
     private String FUN_DTDEMISSAO;
+    private String dia;
+    private String mes;
+    private String ano;
     private final Erros erro = new Erros();
     
     public String getDtd(){
@@ -69,19 +72,27 @@ public class Funcionario extends Fisica implements ICadastro {
     @Override
     public void imprimir() {
         super.imprimir();
+        System.out.println("---------------DADOS FUNCIONARIO--------------");
         System.out.println("Data Admissão: " + FUN_DTADMISSAO);
         System.out.println("Data Demissão: " + FUN_DTDEMISSAO);
+        System.out.println("----------------------------------------------");
     }
 
     @Override
     public void entrada() {
         super.entrada();
+        System.out.println("---------------DADOS FUNCIONARIO--------------");
         System.out.println("Digite a Data de Admissão do Funcionario: ");
         validaDta();
         System.out.println("Digite a Data de Demissão do Funcionario: ");
         validaDtd();
+        System.out.println("----------------------------------------------");
     }
-
+    
+    public void validarDia(){
+        
+    }
+    
 //    "^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$"
     public void validaDta(){
         do {
