@@ -30,7 +30,7 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
     private final int MAX_LENGHT = 64;
     private final int MIN_LENGHT = 10;
     private final Erros erro = new Erros();
-    
+
     //VAI SAIR DEPOIS
     public Long getPesCodigo() {
         return PES_CODIGO;
@@ -109,7 +109,7 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
         System.out.println("Digite um Celular(Sem DDD): ");
         validarCelular();
         System.out.println("Digite um Telefone Fixo: ");
-        setPesFone(PES_FONE);
+        validarFonePes();
         super.entrada();
     }
 
@@ -119,7 +119,7 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
         System.out.println("Nome Completo: " + PES_FULL_NAME);
         System.out.println("E-mail: " + PES_EMAIL);
         System.out.println("Celeular: " + PES_CELULAR);
-        System.out.println("Fone: " +"("+DDD+")"+ PES_FONE);
+        System.out.println("Fone: " + "(" + DDD + ")" + PES_FONE);
         super.imprimir();
     }
 
@@ -131,21 +131,41 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
     }
 
     public void validaOpcao() {
+        System.out.println("[S] = SIM / [N] = Não");
+        System.out.print("|Opcão ---> ");
         do {
             setSn(sn);
             String opt = getSn();
-            if (opt.length() > 1 || opt.length() < 0) {
-                System.out.println(erro.getERRO_OPCAO());
-                sn = "";
-            }else if(opt.equals("s")){
+            if (opt.equals("s") || opt.equals("sim")) {
                 validarEmail();
-            }else if(opt.equals("n")){
+            } else if (opt.equals("n") || opt.equals("nao") || opt.equals("não")) {
                 criarEmail();
-            }else if(!opt.equals("s") || !opt.equals("n")){
+            } else if (!opt.equals("s") && !opt.equals("n") && !opt.equals("sim") && !opt.equals("nao") && !opt.equals("não")) {
                 System.out.println(erro.getERRO_OPCAO());
                 sn = "";
             }
         } while (sn.isEmpty());
+    }
+
+    public void validarFonePes() {
+        do {
+            setPesFone(PES_FONE);
+            String tel = getPesFone();
+            Pattern pattern = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(tel);
+            if (tel.length() < 8) {
+                System.out.println(erro.getERRO_FONE());
+                PES_FONE = "";
+            } else if (matcher.find()) {
+                System.out.println(erro.getERRO_CARACTER_PADRAO());
+                PES_FONE = "";
+            } else if (tel.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                PES_FONE = "";
+            } else {
+                PES_FONE = tel.substring(0,4)+"-"+tel.substring(4);
+            }
+        } while (PES_FONE.isEmpty());
     }
 
     public void criarEmail() {
@@ -201,7 +221,10 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
             String cel = getPesCelular().toLowerCase();
             Pattern pattern = Pattern.compile("\\W");
             Matcher matcher = pattern.matcher(cel);
-            if (matcher.find()) {
+            if (cel.length() < 8) {
+                System.out.println(erro.getERRO_NUMERO1());
+                PES_CELULAR = "";
+            } else if (matcher.find()) {
                 System.out.println(erro.getERRO_NUMERO());
                 PES_CELULAR = "";
             } else if (cel.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
@@ -272,7 +295,7 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
             } else if (matcher1.find()) {
                 System.out.println(erro.getERRO_NOME2());
                 PES_NOME = "";
-            }else{
+            } else {
                 PES_NOME = nome.toLowerCase();
             }
         } while (PES_NOME.isEmpty());

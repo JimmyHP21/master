@@ -5,23 +5,16 @@
  */
 package br.com.main;
 
-import br.com.main.classes.Cliente;
 import br.com.main.classes.Fornecedor;
-import br.com.main.classes.Funcionario;
+import br.com.main.classes.Pagar;
 
 /**
  *
  * @author renanperes
  */
-public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-
-//        Funcionario func = new Funcionario();
+public class Menu {
+    public static void main(String[] args){
+        //        Funcionario func = new Funcionario();
 //        func.entrada();
 //        System.out.println("////////////////////////////////////////////////////");
 //        func.imprimir();
@@ -31,10 +24,14 @@ public class Main {
 //        System.out.println("////////////////////////////////////////////////////");
 //        cli.imprimir();
 
-          Fornecedor forn = new Fornecedor();
-          forn.entrada();
-          System.out.println("////////////////////////////////////////////////////");
-          forn.imprimir();
-    }
+//          Fornecedor forn = new Fornecedor();
+//          forn.entrada();
+//          System.out.println("//////////////////////////////////////////////////");
+//          forn.imprimir();
 
+            Pagar pg = new Pagar();
+            pg.entrada();
+            System.out.println("//////////////////////////////////////////////////");
+            pg.imprimir();
+    }
 }

@@ -47,7 +47,7 @@ public abstract class Juridica extends Pessoa implements ICadastro {
     @Override
     public void entrada() {
         super.entrada();
-        System.out.println("--------INFORMAÇÕES ADCIONAIS PESSOA FISICA--------");
+        System.out.println("-------INFORMAÇÕES ADCIONAIS PESSOA JURIDICA-------");
         System.out.println("Digite o CNPJ: ");
         validarCnpj();
         System.out.println("Digite o Inscest(Inscrição Estadual): ");
@@ -72,10 +72,10 @@ public abstract class Juridica extends Pessoa implements ICadastro {
                 PES_CNPJ = "";
             } else {
                 PES_CNPJ = cnpj.substring(0, 2)
-                        + "." + cnpj.substring(2, 4)
-                        + "." + cnpj.substring(4, 6)
-                        + "/" + cnpj.substring(6, 10)
-                        + "-" + cnpj.substring(10);
+                        + "." + cnpj.substring(2, 5)
+                        + "." + cnpj.substring(5, 8)
+                        + "/" + cnpj.substring(8, 12)
+                        + "-" + cnpj.substring(12);
             }
         } while (PES_CNPJ.isEmpty());
     }
@@ -98,9 +98,9 @@ public abstract class Juridica extends Pessoa implements ICadastro {
                 PES_INSCEST = "";
             } else {
                 PES_INSCEST = ins.substring(0, 3)
-                        + "." + ins.substring(3, 5)
-                        + "." + ins.substring(5, 7)
-                        + "." + ins.substring(7);
+                        + "." + ins.substring(3, 6)
+                        + "." + ins.substring(6, 9)
+                        + "." + ins.substring(9);
             }
         } while (PES_INSCEST.isEmpty());
     }
