@@ -5,11 +5,23 @@
  */
 package br.com.main.classes;
 
+import br.com.main.classes.abstracts.Financeiro;
+
 /**
  *
  * @author renanperes
  */
-public class Pagar {
+public class Pagar extends Financeiro{
     private String FIN_FORNECEDOR;
     private String FIN_BOLETO;
+    
+    @Override
+    public void imprimir(){
+        super.imprimir();
+    }
+    
+    @Override
+    public void entrada(){
+        super.entrada();
+    }
 }

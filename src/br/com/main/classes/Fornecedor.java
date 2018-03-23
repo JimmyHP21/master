@@ -206,49 +206,13 @@ public class Fornecedor extends Juridica {
                 FOR_CONTATO = "";
             } else if (cel.length() == 9) {
                 System.out.println("Digite seu DDD: ");
-                do {
-                    setDDD(DDD);
-                    String ddd = getDDD();
-                    Pattern patternDDD = Pattern.compile("\\W");
-                    Matcher matcherDDD = patternDDD.matcher(ddd);
-                    if (ddd.length() != 2) {
-                        System.out.println(erro.getERRO_DDD1());
-                        DDD = "";
-                    } else if (matcherDDD.find()) {
-                        System.out.println(erro.getERRO_DDD2());
-                        DDD = "";
-                    } else if (ddd.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
-                        System.out.println(erro.getERRO_DDD2());
-                        DDD = "";
-                    } else {
-                        DDD = ddd;
-                        FOR_CONTATO = "(" + DDD + ")" + cel.substring(0, 5) + "-" + cel.substring(5);
-                    }
-                } while (DDD.isEmpty());
+                ddd();
+                FOR_CONTATO = "(" + DDD + ")" + cel.substring(0, 5) + "-" + cel.substring(5);
             } else if (cel.length() == 8) {
                 String numeroCorrigido = "9" + getFOR_CONTATO();
                 FOR_CONTATO = numeroCorrigido;
-                System.out.println("Digite seu DDD: ");
-                do {
-                    setDDD(DDD);
-                    String ddd = getDDD();
-                    Pattern patternDDD = Pattern.compile("\\W");
-                    Matcher matcherDDD = patternDDD.matcher(ddd);
-                    if (ddd.length() != 2) {
-                        System.out.println(erro.getERRO_DDD1());
-                        DDD = "";
-                    } else if (matcherDDD.find()) {
-                        System.out.println(erro.getERRO_DDD2());
-                        DDD = "";
-                    } else if (ddd.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
-                        System.out.println(erro.getERRO_DDD2());
-                        DDD = "";
-                    } else {
-                        DDD = ddd;
-                        FOR_CONTATO = "(" + DDD + ")" + "9" + cel.substring(0, 4) + "-" + cel.substring(4);
-                    }
-                } while (DDD.isEmpty());
-
+                ddd();
+                FOR_CONTATO = "(" + DDD + ")" + "9" + cel.substring(0, 4) + "-" + cel.substring(4);
             } else {
                 System.out.println(erro.getERRO_NUMERO1());
             }
@@ -286,22 +250,22 @@ public class Fornecedor extends Juridica {
             String site = getFOR_SITE();
             boolean com = false;
             boolean www = false;
-            if (!site.contains(".com") && !site.contains("www.")) {
+            if (!site.contains(".com.br") && !site.contains("www.")) {
                 www = true;
                 com = true;
             } else if (!site.contains("www.")) {
                 www = true;
-            } else if (!site.contains(".com")) {
+            } else if (!site.contains(".com.br")) {
                 com = true;
             } else {
                 FOR_SITE = site;
             }
             if (www == true && com == true) {
-                FOR_SITE = "www." + site.toLowerCase() + ".com";
-            } else if (www = true) {
+                FOR_SITE = "www." + site.toLowerCase() + ".com.br";
+            } else if (www == true) {
                 FOR_SITE = "www." + site.toLowerCase();
-            } else if (com = true) {
-                FOR_SITE = site.toLowerCase() + ".com";
+            } else if (com == true) {
+                FOR_SITE = site.toLowerCase() + ".com.br";
             }
         } while (FOR_SITE.isEmpty());
     }
@@ -334,22 +298,24 @@ public class Fornecedor extends Juridica {
             String m = getMes();
             Pattern pattern = Pattern.compile("\\W");
             Matcher matcher = pattern.matcher(m);
-            int n = Integer.parseInt(m);
-            if (n < 12 && n > 1) {
-                if (m.length() == 1) {
-                    mes = "0" + m;
-                } else if (matcher.find()) {
-                    System.out.println(erro.getERRO_CARACTER_PADRAO());
-                    mes = "";
-                } else if (m.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
-                    System.out.println(erro.getERRO_NUMERO_PADRAO());
-                    mes = "";
-                } else {
-                    mes = m;
-                }
-            } else if (n > 12 || n <= 0) {
+            if (m.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                mes = "";
+            } else if (matcher.find()) {
+                System.out.println(erro.getERRO_CARACTER_PADRAO());
+                mes = "";
+            } else if (Integer.parseInt(m) > 12 || Integer.parseInt(m) < 1) {
                 System.out.println(erro.getERRO_MES_INVALIDO());
                 mes = "";
+            } else {
+                int n = Integer.parseInt(m);
+                if (n <= 12 && n >= 1) {
+                    if (mes.length() == 1) {
+                        mes = "0" + m;
+                    } else {
+                        mes = m;
+                    }
+                }
             }
         } while (mes.isEmpty());
     }
@@ -687,16 +653,16 @@ public class Fornecedor extends Juridica {
             String compra = getFOR_LIMITECOMPRA();
             Pattern pattern = Pattern.compile("\\W");
             Matcher matcher = pattern.matcher(compra);
-            if(compra.length() <= 0){
+            if (compra.length() <= 0) {
                 System.out.println(erro.getERRO_TAMANHO_PADRAO());
                 FOR_LIMITECOMPRA = "";
-            }else if(matcher.find()){
+            } else if (matcher.find()) {
                 System.out.println(erro.getERRO_CARACTER_PADRAO());
                 FOR_LIMITECOMPRA = "";
-            }else if(compra.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")){
+            } else if (compra.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
                 System.out.println(erro.getERRO_NUMERO_PADRAO());
                 FOR_LIMITECOMPRA = "";
-            }else{
+            } else {
                 FOR_LIMITECOMPRA = compra;
             }
         } while (FOR_LIMITECOMPRA.isEmpty());

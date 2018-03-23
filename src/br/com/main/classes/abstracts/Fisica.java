@@ -75,9 +75,9 @@ public abstract class Fisica extends Pessoa implements ICadastro {
             } else {
 //                ( XXX.XXX.XXX-XX ) 
                 PES_CPF = cpf.substring(0, 3)
-                        + "." + cpf.substring(3, 5)
-                        + "." + cpf.substring(5, 7)
-                        + "-" + cpf.substring(7);
+                        + "." + cpf.substring(3, 6)
+                        + "." + cpf.substring(6, 9)
+                        + "-" + cpf.substring(9);
             }
 
         } while (PES_CPF.isEmpty());
@@ -86,11 +86,17 @@ public abstract class Fisica extends Pessoa implements ICadastro {
     public void validarRg() {
         do {
             setRg(PES_RG);
-            String rg = getRg();
+            String rg = getRg().toLowerCase();
             Pattern pattern = Pattern.compile("\\W");
             Matcher matcher = pattern.matcher(rg);
-            if (matcher.find()) {
+            if (rg.length() < 10) {
+                System.out.println(erro.getERRO_RG());
+                PES_RG = "";
+            } else if (matcher.find()) {
                 System.out.println(erro.getERRO_CARACTER_PADRAO());
+                PES_RG = "";
+            } else if (!rg.contains("x")) {
+                System.out.println(erro.getERRO_RG());
                 PES_RG = "";
             } else {
                 PES_RG = rg;

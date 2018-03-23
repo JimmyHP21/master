@@ -52,7 +52,26 @@ public class Erros {
     private final String ERRO_DIA_INVALIDO ="Dia Invalido Digite conforme XX/MES/ANO!! Digite Novamente: ";
     private final String ERRO_LIMITE = "Limite não pode ser 0!! Digite Novamente: ";
     private final String ERRO_DATA_PADRAO_FORMATO = "Digite a Data no Formato dd/mm/aaaa !!Digite Novamente: ";
-    private final String ERRO_SITE = "Site Invalido!! Digite Novamente";
+    private final String ERRO_FONE = "Telefone invalido!! Digite Novamente:";
+    private final String ERRO_RG = "RG Invalido!! Digite Novamente: ";
+    private final String ERRO_PARCELAS = "Numero de parcelas invalidos!! Digite Novamente: ";
+    private final String ERRO_GERAR_BOLETO = "ERRO AO GERAR BOLETO!! ENTRE EM CONTATO COM O SUPORTE";
+    
+    public String getERRO_GERAR_BOLETO(){
+        return ERRO_GERAR_BOLETO;
+    }
+
+    public String getERRO_PARCELAS(){
+        return ERRO_PARCELAS;
+    }
+    
+    public String getERRO_RG(){
+        return ERRO_RG;
+    }
+    
+    public String getERRO_FONE(){
+        return ERRO_FONE;
+    }
     
     public String getERRO_DATA_PADRAO_FORMATO(){
         return ERRO_DATA_PADRAO_FORMATO;
