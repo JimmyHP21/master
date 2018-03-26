@@ -95,10 +95,7 @@ public abstract class Fisica extends Pessoa implements ICadastro {
             } else if (matcher.find()) {
                 System.out.println(erro.getERRO_CARACTER_PADRAO());
                 PES_RG = "";
-            } else if (!rg.contains("x")) {
-                System.out.println(erro.getERRO_RG());
-                PES_RG = "";
-            } else {
+            }else {
                 PES_RG = rg;
             }
         } while (PES_RG.isEmpty());

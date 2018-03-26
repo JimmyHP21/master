@@ -32,7 +32,18 @@ public class EnderecoNovo implements ICadastro, ICadastroUF, ICadastroCidade {
     private String cep;
     private String bairro;
     private String complemento;
-
+    
+    public void excluir(){
+        bairro = "";
+        cep = "";
+        cidade = "";
+        complemento = "";
+        estado = "";
+        numero = "";
+        rua = "";
+        uf = "";
+    }
+    
     public String getRua() {
         return rua;
     }
