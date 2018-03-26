@@ -101,12 +101,17 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
         return sn.toLowerCase();
     }
 
+    @Override
     public void excluir() {
+        super.excluir();
         PES_CODIGO = "";
+        PES_ID = 0;
         PES_FULL_NAME = "";
         PES_CELULAR = "";
         PES_FONE = "";
         PES_EMAIL = "";
+        DDD = "";
+        
     }
 
     @Override

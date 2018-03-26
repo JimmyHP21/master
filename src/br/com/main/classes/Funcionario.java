@@ -714,8 +714,8 @@ public class Funcionario extends Fisica implements ICadastro {
                 System.out.println(erro.getERRO_TAMANHO_PADRAO());
                 salario = "";
             } else {
-                salario = form.format(sal);
-                FUN_SALARIO = salario;
+                float al = Float.parseFloat(sal);
+                FUN_SALARIO = form.format(al);
             }
         } while (salario.isEmpty());
     }
