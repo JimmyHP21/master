@@ -6,6 +6,7 @@
 package br.com.main.classes;
 
 import br.com.main.Exceptions.Erros;
+import br.com.main.Exceptions.Mensagens;
 import br.com.main.classes.abstracts.Juridica;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,8 +31,18 @@ public class Fornecedor extends Juridica {
     private String DDD;
     private boolean isTel = false;
     private boolean isCel = false;
+    private String snF;
     private final Erros erro = new Erros();
+    private final Mensagens msg = new Mensagens();
 
+    public String getSnf(){
+        return snF;
+    }
+    
+    public void setSnF(String snF){
+        this.snF = leia.next();
+    }
+    
     public String getConOpt() {
         return conOpt;
     }
@@ -667,5 +678,71 @@ public class Fornecedor extends Juridica {
             }
         } while (FOR_LIMITECOMPRA.isEmpty());
     }
-
+    
+    @Override
+    public void excluir(){
+        super.excluir();
+        FOR_SITE = "";
+        FOR_LIMITECOMPRA = "";
+        FOR_CONTATO = "";
+        DDD = "";
+    }
+    
+    public void alterandoFornecedor(){
+        System.out.println("-----------ALTERADO INFORMAÇÕES FORNECEDOR------------");
+        System.out.println("-----------CADASTRAR FORNECEDOR------------");
+        System.out.println("Contato: ");
+        System.out.println("[1] = Celular / [2] = Telefone");
+        System.out.print("|Opcão ---> ");
+        validarContato();
+        System.out.println("Digite o site do Fornecedor: ");
+        siteValido();
+        System.out.println("Digite o limite da Compra: ");
+        limiteCompra();
+        System.out.println("Data do Cadastro: ");
+        System.out.println("Mês: ");
+        validarMes();
+        System.out.println("Dia: ");
+        validarDia();
+        System.out.println("Ano: ");
+        validarAno();
+        formataData();
+    }
+    
+    public void fornecedorExcuir() {
+        System.out.println("Deseja Realmente Excluir o Fornecedor? ");
+        System.out.println("[1] - SIM/ [2] - NÃO");
+        System.out.print("| OPÇÃO -->");
+        do {
+            setSnF(snF);
+            String opc = getSnf();
+            Pattern pattern = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(opc);
+            if (opc.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                snF = "";
+            } else if (matcher.find()) {
+                System.out.println(erro.getERRO_CARACTER_PADRAO());
+                snF = "";
+            } else if (opc.length() != 1) {
+                System.out.println(erro.getERRO_TAMANHO_PADRAO());
+                snF = "";
+            } else {
+                int op = Integer.parseInt(snF);
+                switch (op) {
+                    case 1:
+                        System.out.println(msg.getSucessoExcluir());
+                        excluir();
+                        break;
+                    case 2:
+                        System.out.println(msg.getOperacaoCancelada());
+                        break;
+                    default:
+                        System.out.println(erro.getERRO_OPCAO());
+                        snF = "";
+                        break;
+                }
+            }
+        } while (snF.isEmpty());
+    }
 }

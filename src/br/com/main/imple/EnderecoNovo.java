@@ -115,8 +115,12 @@ public class EnderecoNovo implements ICadastro, ICadastroUF, ICadastroCidade {
         System.out.println("Rua: " + rua);
         System.out.println("CEP: " + cep);
         System.out.println("Numero: " + numero);
-        if (!complemento.isEmpty()) {
-            System.out.println("Dados Complementares: " + complemento);
+        try {
+            if (!complemento.isEmpty()) {
+                System.out.println("Dados Complementares: " + complemento);
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Sem Dados Complementares!");
         }
     }
 

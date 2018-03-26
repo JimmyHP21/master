@@ -40,6 +40,7 @@ public abstract class Financeiro implements ICadastro {
     private String qtdPar;
     private boolean isAvista = false;
     private boolean isPago = false;
+    private boolean isHist = false;
     private String op;
     private float FIN_VALOR_AVISTA;
     private float FIN_VALOR_JUROS;
@@ -168,9 +169,9 @@ public abstract class Financeiro implements ICadastro {
     }
 
     public void tabelaFinHist() {
-        System.out.println("----------Historico Financeiro----------");
-        System.out.println("");
-
+        System.out.println("----------------Historico Financeiro---------------");
+        getFIN_HISTORICO();
+        System.out.println("---------------------------------------------------");
     }
 
     @Override
@@ -180,8 +181,8 @@ public abstract class Financeiro implements ICadastro {
         if (isAvista == true) {
             System.out.println("Pagamento aVista, Total de.......: $" + FIN_VALOR_AVISTA);
         } else if (qtdPar.equals("02") || qtdPar.equals("03")) {
-            System.out.println("Valor da Compra.........:"+FIN_VALOR);
-            System.out.println(qtdPar+" X $"+FIN_VALOR_PAR_S_JUROS);
+            System.out.println("Valor da Compra.........:" + FIN_VALOR);
+            System.out.println(qtdPar + " X $" + FIN_VALOR_PAR_S_JUROS);
         } else {
             System.out.println("Valor Total Com Juros..........: $" + FIN_TOTAL);
             System.out.print("Pagamento Parcelado........: ");
@@ -194,6 +195,12 @@ public abstract class Financeiro implements ICadastro {
         } else {
             System.out.println("Situação.........: " + msg.getPagamentoDebito());
         }
+        if (isHist == true) {
+            tabelaFinHist();
+        } else {
+            System.out.println("Sem Observações!");
+        }
+        
     }
 
     @Override
@@ -205,6 +212,7 @@ public abstract class Financeiro implements ICadastro {
         parcelaAvista();
         System.out.println("Pagamento já foi Realizado?  ");
         validarPagamento();
+        validarHist();
     }
 
 //    "^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$"
@@ -235,6 +243,42 @@ public abstract class Financeiro implements ICadastro {
         System.out.println("Boleto gerado com Sucesso!!");
     }
 
+    public void validarHist() {
+        System.out.println("Alguma observação sobre esse boleto?  ");
+        System.out.println("[1] - SIM/ [2] - NÃO");
+        System.out.print("| OPÇÃO -->");
+        do {
+            setOp(op);
+            String opt = getOp();
+            Pattern pattern = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(opt);
+            if (opt.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                op = "";
+            } else if (matcher.find()) {
+                System.out.println(erro.getERRO_CARACTER_PADRAO());
+                op = "";
+            } else if (opt.length() != 1) {
+                System.out.println(erro.getERRO_TAMANHO_PADRAO());
+                op = "";
+            } else {
+                int po = Integer.parseInt(opt);
+                switch (po) {
+                    case 1:
+                        isHist = true;
+                        historico();
+                        break;
+                    case 2:
+                        FIN_HISTORICO = "";
+                        break;
+                    default:
+                        System.out.println(erro.getERRO_OPCAO());
+                        break;
+                }
+            }
+        } while (op.isEmpty());
+    }
+
     public void valorCompra() {
         do {
             setFIN_VALOR(FIN_VALOR);
@@ -253,6 +297,10 @@ public abstract class Financeiro implements ICadastro {
                 FIN_VALOR = form.format(valor);
             }
         } while (FIN_VALOR.isEmpty());
+    }
+
+    public void historico() {
+        setFIN_HISTORICO(FIN_HISTORICO);
     }
 
     public void parcelaAvista() {
