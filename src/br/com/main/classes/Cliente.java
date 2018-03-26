@@ -6,6 +6,7 @@
 package br.com.main.classes;
 
 import br.com.main.Exceptions.Erros;
+import br.com.main.Exceptions.Mensagens;
 import br.com.main.classes.abstracts.Juridica;
 import br.com.main.interfaces.ICadastro;
 import java.text.DecimalFormat;
@@ -22,9 +23,19 @@ public class Cliente extends Juridica implements ICadastro {
     private String CLI_LIMITECREDITO;
     private Double credito;
     private String opDeve;
+    private String snF;
     private boolean isDevendo = false;
     private final Erros erro = new Erros();
-
+    private final Mensagens msg = new Mensagens();
+    
+    public String getSnf(){
+        return snF;
+    }
+    
+    public void setSnF(String snf){
+        this.snF = leia.next();
+    }
+    
     public String getCliLimiteCredito() {
         return CLI_LIMITECREDITO;
     }
@@ -40,10 +51,25 @@ public class Cliente extends Juridica implements ICadastro {
     public void setOpDeve(String opDeve) {
         this.opDeve = leia.next();
     }
-
+    
+    @Override
+    public void excluir(){
+        super.excluir();
+        CLI_LIMITECREDITO = "";
+    }
+    
+    public void alterandoCliente(){
+        System.out.println("-----------ALTERANDO INFORMAÇÕES CLIENTE-------------");
+        System.out.println("---------------DADOS CLIENTE CADASTRO----------------");
+        System.out.println("Cliente Devendo? ");
+        System.out.println("[S] - Sim/ [N] - Não");
+        System.out.print("|Opcão ---> ");
+        opDeve();
+    }
+    
     @Override
     public void entrada() {
-        //super.entrada();
+        super.entrada();
         System.out.println("------DADOS CLIENTE CADASTRO-------");
         System.out.println("Cliente Devendo? ");
         System.out.println("[S] - Sim/ [N] - Não");
@@ -53,7 +79,7 @@ public class Cliente extends Juridica implements ICadastro {
 
     @Override
     public void imprimir() {
-        //super.imprimir();
+        super.imprimir();
         System.out.println("-----------DADOS CLIENTE------------");
         if (isDevendo == true) {
             System.out.println("Limite Devedor:" + CLI_LIMITECREDITO);
@@ -61,7 +87,44 @@ public class Cliente extends Juridica implements ICadastro {
             System.out.println("Limite de Credito: " + CLI_LIMITECREDITO);
         }
     }
-
+    
+    public void clienteExcuir() {
+        System.out.println("Deseja Realmente Excluir o Cliente? ");
+        System.out.println("[1] - SIM/ [2] - NÃO");
+        System.out.print("| OPÇÃO -->");
+        do {
+            setSnF(snF);
+            String opc = getSnf();
+            Pattern pattern = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(opc);
+            if (opc.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                snF = "";
+            } else if (matcher.find()) {
+                System.out.println(erro.getERRO_CARACTER_PADRAO());
+                snF = "";
+            } else if (opc.length() != 1) {
+                System.out.println(erro.getERRO_TAMANHO_PADRAO());
+                snF = "";
+            } else {
+                int op = Integer.parseInt(snF);
+                switch (op) {
+                    case 1:
+                        System.out.println(msg.getSucessoExcluir());
+                        excluir();
+                        break;
+                    case 2:
+                        System.out.println(msg.getOperacaoCancelada());
+                        break;
+                    default:
+                        System.out.println(erro.getERRO_OPCAO());
+                        snF = "";
+                        break;
+                }
+            }
+        } while (snF.isEmpty());
+    }
+    
     public void opDeve() {
         do {
             setOpDeve(opDeve);

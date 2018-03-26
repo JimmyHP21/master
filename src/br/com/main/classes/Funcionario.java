@@ -6,8 +6,10 @@
 package br.com.main.classes;
 
 import br.com.main.Exceptions.Erros;
+import br.com.main.Exceptions.Mensagens;
 import br.com.main.classes.abstracts.Fisica;
 import br.com.main.interfaces.ICadastro;
+import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,9 +19,12 @@ import java.util.regex.Pattern;
  */
 public class Funcionario extends Fisica implements ICadastro {
 
+    private final DecimalFormat form = new DecimalFormat("#,###.00");
     //Carteira de Trabalho e Previdência Social
+    private String ID_FUNC;
     private String FUN_CTPS;
-    private float FUN_SALARIO;
+    private String FUN_SALARIO;
+    private String salario;
     private String FUN_DTADMISSAO;
     private String FUN_DTDEMISSAO;
     private String dia;
@@ -27,7 +32,43 @@ public class Funcionario extends Fisica implements ICadastro {
     private String ano;
     private boolean isDemitido = false;
     private String optD;
+    private String snF;
     private final Erros erro = new Erros();
+    private final Mensagens msg = new Mensagens();
+
+    public Funcionario(String idFunc, String funCtps, String funSalario, String funDtadimissao, String funDtdemissao,
+            String dia, String mes, String ano, boolean isDemitido) {
+        this.ID_FUNC = idFunc;
+
+    }
+
+    public Funcionario() {
+
+    }
+
+    public String getSnf() {
+        return snF;
+    }
+
+    public void setSnF(String sn) {
+        this.snF = leia.next();
+    }
+
+    public void setId(String ID_FUNC) {
+        this.ID_FUNC = leia.next();
+    }
+
+    public String getId() {
+        return ID_FUNC;
+    }
+
+    public void setSalario(String salario) {
+        this.salario = leia.next();
+    }
+
+    public String getSalario() {
+        return salario;
+    }
 
     public String getOptD() {
         return optD;
@@ -69,12 +110,12 @@ public class Funcionario extends Fisica implements ICadastro {
         this.FUN_CTPS = leia.next();
     }
 
-    public float getFUN_SALARIO() {
+    public String getFUN_SALARIO() {
         return FUN_SALARIO;
     }
 
-    public void setFUN_SALARIO(float FUN_SALARIO) {
-        this.FUN_SALARIO = leia.nextFloat();
+    public void setFUN_SALARIO(String FUN_SALARIO) {
+        this.FUN_SALARIO = leia.next();
     }
 
     public String getFUN_DTADMISSAO() {
@@ -86,23 +127,59 @@ public class Funcionario extends Fisica implements ICadastro {
     }
 
     @Override
-    public void imprimir() {
-        super.imprimir();
-        System.out.println("---------------DADOS FUNCIONARIO--------------");
-        System.out.println("Data Admissão: " + FUN_DTADMISSAO);
-        if (isDemitido == false) {
-            System.out.println("Funcionario Trabalha na Empressa");
-        } else {
-            System.out.println("Data Demissão: " + FUN_DTDEMISSAO);
-        }
-
-        System.out.println("----------------------------------------------");
+    public void excluir() {
+        super.excluir();
+        ID_FUNC = "";
+        FUN_CTPS = "";
+        FUN_DTADMISSAO = "";
+        FUN_DTDEMISSAO = "";
+        FUN_SALARIO = "";
     }
 
-    @Override
-    public void entrada() {
-        super.entrada();
+    public void funcionarioExcuir() {
+        System.out.println("Deseja Realmente Excluir o funcionario? ");
+        System.out.println("[1] - SIM/ [2] - NÃO");
+        System.out.print("| OPÇÃO -->");
+        do {
+            setSnF(snF);
+            String opc = getSnf();
+            Pattern pattern = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(opc);
+            if (opc.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                snF = "";
+            } else if (matcher.find()) {
+                System.out.println(erro.getERRO_CARACTER_PADRAO());
+                snF = "";
+            } else if (opc.length() != 1) {
+                System.out.println(erro.getERRO_TAMANHO_PADRAO());
+                snF = "";
+            } else {
+                int op = Integer.parseInt(snF);
+                switch (op) {
+                    case 1:
+                        System.out.println(msg.getSucessoExcluir());
+                        excluir();
+                        break;
+                    case 2:
+                        System.out.println(msg.getOperacaoCancelada());
+                        break;
+                    default:
+                        System.out.println(erro.getERRO_OPCAO());
+                        snF = "";
+                        break;
+                }
+            }
+        } while (snF.isEmpty());
+    }
+
+    public void alterarFuncionario() {
+        System.out.println("------------ALTERANDO FUNCIONARIO-------------");
         System.out.println("---------------DADOS FUNCIONARIO--------------");
+        System.out.println("ID: ");
+        idValido();
+        System.out.println("Carteira de Trabalho e Previdência Social: ");
+        carteiraDeTrabalho();
         System.out.println("-------Data de Admissão do Funcionario--------");
         System.out.print("Mês: ");
         validarMes();
@@ -125,7 +202,58 @@ public class Funcionario extends Fisica implements ICadastro {
             validarAno();
             dtdmissao();
         }
+        System.out.println("Salario do Funcionario:");
+        salario();
+    }
 
+    @Override
+    public void imprimir() {
+        super.imprimir();
+        System.out.println("---------------DADOS FUNCIONARIO--------------");
+        System.out.println("ID: " + ID_FUNC);
+        System.out.println("Carteira de Trabalho e Previdência Social: " + FUN_CTPS);
+        System.out.println("Data Admissão: " + FUN_DTADMISSAO);
+        if (isDemitido == false) {
+            System.out.println("Funcionario Trabalha na Empressa");
+        } else {
+            System.out.println("Data Demissão: " + FUN_DTDEMISSAO);
+        }
+        System.out.println("Salario: " + FUN_SALARIO);
+        System.out.println("----------------------------------------------");
+    }
+
+    @Override
+    public void entrada() {
+        super.entrada();
+        System.out.println("---------------DADOS FUNCIONARIO--------------");
+        System.out.println("ID: ");
+        idValido();
+        System.out.println("Carteira de Trabalho e Previdência Social: ");
+        carteiraDeTrabalho();
+        System.out.println("-------Data de Admissão do Funcionario--------");
+        System.out.print("Mês: ");
+        validarMes();
+        System.out.print("Dia: ");
+        validarDia();
+        System.out.print("Ano: ");
+        validarAno();
+        dtadmissao();
+        System.out.println("Funionario Foi Demitido: ");
+        System.out.println("[S] = SIM / [N] = NÃO");
+        System.out.print("|Opcão ---> ");
+        isDemitido();
+        if (isDemitido == true) {
+            System.out.println("-------Data de Demissão do Funcionario--------");
+            System.out.print("Mês: ");
+            validarMes();
+            System.out.print("Dia: ");
+            validarDia();
+            System.out.println("Ano: ");
+            validarAno();
+            dtdmissao();
+        }
+        System.out.println("Salario do Funcionario:");
+        salario();
         System.out.println("----------------------------------------------");
     }
 
@@ -135,6 +263,49 @@ public class Funcionario extends Fisica implements ICadastro {
 
     public void dtdmissao() {
         FUN_DTDEMISSAO = dia + "/" + mes + "/" + ano;
+    }
+
+    public void carteiraDeTrabalho() {
+        do {
+            setFUN_CTPS(FUN_CTPS);
+            String ctps = getFUN_CTPS();
+            Pattern pattern = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(ctps);
+            if (ctps.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                FUN_CTPS = "";
+            } else if (matcher.find()) {
+                System.out.println(erro.getERRO_CARACTER_PADRAO());
+                FUN_CTPS = "";
+            } else if (ctps.length() < 1 || ctps.length() < 5) {
+                System.out.println(erro.getERRO_TAMANHO_PADRAO());
+                FUN_CTPS = "";
+            } else {
+                FUN_CTPS = ctps;
+            }
+        } while (FUN_CTPS.isEmpty());
+
+    }
+
+    public void idValido() {
+        do {
+            setId(ID_FUNC);
+            String id = getId();
+            Pattern pattern = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(id);
+            if (id.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                ID_FUNC = "";
+            } else if (matcher.find()) {
+                System.out.println(erro.getERRO_CARACTER_PADRAO());
+                ID_FUNC = "";
+            } else if (id.length() < 1) {
+                System.out.println(erro.getERRO_TAMANHO_PADRAO());
+                ID_FUNC = "";
+            } else {
+                ID_FUNC = id;
+            }
+        } while (ID_FUNC.isEmpty());
     }
 
 //    "^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$"
@@ -525,5 +696,27 @@ public class Funcionario extends Fisica implements ICadastro {
                 }
             }
         } while (optD.isEmpty());
+    }
+
+    public void salario() {
+        do {
+            setSalario(salario);
+            String sal = getSalario();
+            Pattern pattern = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(sal);
+            if (sal.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                salario = "";
+            } else if (matcher.find()) {
+                System.out.println(erro.getERRO_CARACTER_PADRAO());
+                salario = "";
+            } else if (sal.length() < 0) {
+                System.out.println(erro.getERRO_TAMANHO_PADRAO());
+                salario = "";
+            } else {
+                salario = form.format(sal);
+                FUN_SALARIO = salario;
+            }
+        } while (salario.isEmpty());
     }
 }

@@ -18,7 +18,8 @@ import java.util.regex.Pattern;
  */
 public abstract class Pessoa extends EnderecoNovo implements ICadastro {
 
-    private Long PES_CODIGO;
+    private int PES_ID;
+    private String PES_CODIGO;
     private String PES_NOME;
     private String PES_SOBRENOME;
     private String PES_FULL_NAME;
@@ -32,12 +33,16 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
     private final Erros erro = new Erros();
 
     //VAI SAIR DEPOIS
-    public Long getPesCodigo() {
+    public String getPesCodigo() {
         return PES_CODIGO;
     }
 
-    public void setPesCodigo(Long codigo) {
-        this.PES_CODIGO = leia.nextLong();
+    public String getFullName() {
+        return PES_FULL_NAME;
+    }
+
+    public void setPesCodigo(String codigo) {
+        this.PES_CODIGO = leia.next();
     }
 
     public String getPesNome() {
@@ -96,9 +101,19 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
         return sn.toLowerCase();
     }
 
+    public void excluir() {
+        PES_CODIGO = "";
+        PES_FULL_NAME = "";
+        PES_CELULAR = "";
+        PES_FONE = "";
+        PES_EMAIL = "";
+    }
+
     @Override
     public void entrada() {
         System.out.println("--------------DADOS BASICOS--------------");
+        System.out.println("ID: ");
+        codigoValido();
         System.out.println("Digite Seu Nome: ");
         validarNome();
         System.out.println("Digite seu Sobrenome: ");
@@ -116,6 +131,7 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
     @Override
     public void imprimir() {
         System.out.println("---------------DADOS BASICOS--------------");
+        System.out.println("ID: "+PES_ID);
         System.out.println("Nome Completo: " + PES_FULL_NAME);
         System.out.println("E-mail: " + PES_EMAIL);
         System.out.println("Celeular: " + PES_CELULAR);
@@ -140,7 +156,8 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
                 validarEmail();
             } else if (opt.equals("n") || opt.equals("nao") || opt.equals("não")) {
                 criarEmail();
-            } else if (!opt.equals("s") && !opt.equals("n") && !opt.equals("sim") && !opt.equals("nao") && !opt.equals("não")) {
+            } else if (!opt.equals("s") && !opt.equals("n") && !opt.equals("sim")
+                    && !opt.equals("nao") && !opt.equals("não")) {
                 System.out.println(erro.getERRO_OPCAO());
                 sn = "";
             }
@@ -163,9 +180,31 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
                 System.out.println(erro.getERRO_NUMERO_PADRAO());
                 PES_FONE = "";
             } else {
-                PES_FONE = tel.substring(0,4)+"-"+tel.substring(4);
+                PES_FONE = tel.substring(0, 4) + "-" + tel.substring(4);
             }
         } while (PES_FONE.isEmpty());
+    }
+
+    public void codigoValido() {
+        do {
+            setPesCodigo(PES_CODIGO);
+            String id = getPesCodigo();
+            Pattern pattern = Pattern.compile("\\W");
+            Matcher matcher = pattern.matcher(id);
+            if (id.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
+                System.out.println(erro.getERRO_NUMERO_PADRAO());
+                PES_CODIGO = "";
+            } else if (matcher.find()) {
+                System.out.println(erro.getERRO_CARACTER_PADRAO());
+                PES_CODIGO = "";
+            } else if (id.length() < 1) {
+                System.out.println(erro.getERRO_TAMANHO_PADRAO());
+                PES_CODIGO = "";
+            } else {
+                PES_ID = Integer.parseInt(id);
+            }
+
+        } while (PES_CODIGO.isEmpty());
     }
 
     public void criarEmail() {
