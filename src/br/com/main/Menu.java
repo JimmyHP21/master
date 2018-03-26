@@ -20,42 +20,6 @@ import java.util.regex.Pattern;
  */
 public class Menu {
 
-    void opt(String continu) {
-        Scanner leia = new Scanner(System.in);
-        Erros erro = new Erros();
-        do {
-            System.out.println("Deseja realizar mais alguma opção? ");
-            System.out.println("[1] - SIM / [2] - NÃO");
-            System.out.print("| OPÇÃO -->");
-            continu = leia.next();
-            Pattern pattern = Pattern.compile("\\W");
-            Matcher matcher = pattern.matcher(continu);
-            if (continu.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
-                System.out.println(erro.getERRO_NUMERO_PADRAO());
-                continu = "";
-            } else if (matcher.find()) {
-                System.out.println(erro.getERRO_CARACTER_PADRAO());
-                continu = "";
-            } else if (continu.length() != 1) {
-                System.out.println(erro.getERRO_TAMANHO_PADRAO());
-                continu = "";
-            } else {
-                int op = Integer.parseInt(continu);
-                switch (op) {
-                    case 1:
-                        continu = "";
-                        break;
-                    case 2:
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-
-        } while (continu.isEmpty());
-    }
-
     public static void main(String[] args) {
         Funcionario func = new Funcionario();
         Fornecedor forn = new Fornecedor();

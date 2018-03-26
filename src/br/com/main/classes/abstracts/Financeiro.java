@@ -374,7 +374,6 @@ public abstract class Financeiro implements ICadastro {
 
                     float x = FIN_VALOR1 / 100;
                     float y = (float) (x * FIN_DESCONTO);
-                    float parcelaAvista = FIN_VALOR1 - y;
                     switch (qtdPar) {
                         case "04":
                             FIN_VALOR_JUROS = parcela * 4;
