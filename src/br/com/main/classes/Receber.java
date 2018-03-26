@@ -5,11 +5,23 @@
  */
 package br.com.main.classes;
 
+import br.com.main.classes.abstracts.Financeiro;
+
 /**
  *
  * @author renanperes
  */
-public class Receber {
+public class Receber extends Financeiro{
     private String REC_CLIENTE;
     private String REC_NF;
+    
+    @Override
+    public void imprimir(){
+        super.imprimir();
+    }
+    
+    @Override
+    public void entrada(){
+        super.entrada();
+    }
 }
