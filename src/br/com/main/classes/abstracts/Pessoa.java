@@ -42,7 +42,7 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
     }
 
     public void setPesCodigo(String codigo) {
-        this.PES_CODIGO = leia.next();
+        this.PES_CODIGO = PES_CODIGO;
     }
 
     public String getPesNome() {
@@ -68,7 +68,15 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
     public String getDDD() {
         return DDD;
     }
-
+    
+    public int getPesId(){
+        return PES_ID;
+    }
+    
+    public void setPesId(int id){
+        this.PES_ID = PES_ID;
+    }
+    
     public void setPesNome(String nome) {
         this.PES_NOME = leia.next();
     }
@@ -101,24 +109,15 @@ public abstract class Pessoa extends EnderecoNovo implements ICadastro {
         return sn.toLowerCase();
     }
 
-    @Override
-    public void excluir() {
-        super.excluir();
-        PES_CODIGO = "";
-        PES_ID = 0;
-        PES_FULL_NAME = "";
-        PES_CELULAR = "";
-        PES_FONE = "";
-        PES_EMAIL = "";
-        DDD = "";
-        
+    
+    public void codigo(int id){
+        setPesId(id);
+        PES_ID = id;
     }
-
+    
     @Override
     public void entrada() {
         System.out.println("--------------DADOS BASICOS--------------");
-        System.out.println("ID: ");
-        codigoValido();
         System.out.println("Digite Seu Nome: ");
         validarNome();
         System.out.println("Digite seu Sobrenome: ");

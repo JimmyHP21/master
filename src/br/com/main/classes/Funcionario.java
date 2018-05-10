@@ -55,7 +55,7 @@ public class Funcionario extends Fisica implements ICadastro {
     }
 
     public void setId(String ID_FUNC) {
-        this.ID_FUNC = leia.next();
+        this.ID_FUNC = ID_FUNC;
     }
 
     public String getId() {
@@ -176,8 +176,6 @@ public class Funcionario extends Fisica implements ICadastro {
     public void alterarFuncionario() {
         System.out.println("------------ALTERANDO FUNCIONARIO-------------");
         System.out.println("---------------DADOS FUNCIONARIO--------------");
-        System.out.println("ID: ");
-        idValido();
         System.out.println("Carteira de Trabalho e Previdência Social: ");
         carteiraDeTrabalho();
         System.out.println("-------Data de Admissão do Funcionario--------");
@@ -221,13 +219,15 @@ public class Funcionario extends Fisica implements ICadastro {
         System.out.println("Salario: " + FUN_SALARIO);
         System.out.println("----------------------------------------------");
     }
+    
+    public void id(int id){
+        ID_FUNC = String.valueOf(id);
+    }
 
     @Override
     public void entrada() {
         super.entrada();
         System.out.println("---------------DADOS FUNCIONARIO--------------");
-        System.out.println("ID: ");
-        idValido();
         System.out.println("Carteira de Trabalho e Previdência Social: ");
         carteiraDeTrabalho();
         System.out.println("-------Data de Admissão do Funcionario--------");
@@ -286,28 +286,6 @@ public class Funcionario extends Fisica implements ICadastro {
         } while (FUN_CTPS.isEmpty());
 
     }
-
-    public void idValido() {
-        do {
-            setId(ID_FUNC);
-            String id = getId();
-            Pattern pattern = Pattern.compile("\\W");
-            Matcher matcher = pattern.matcher(id);
-            if (id.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")) {
-                System.out.println(erro.getERRO_NUMERO_PADRAO());
-                ID_FUNC = "";
-            } else if (matcher.find()) {
-                System.out.println(erro.getERRO_CARACTER_PADRAO());
-                ID_FUNC = "";
-            } else if (id.length() < 1) {
-                System.out.println(erro.getERRO_TAMANHO_PADRAO());
-                ID_FUNC = "";
-            } else {
-                ID_FUNC = id;
-            }
-        } while (ID_FUNC.isEmpty());
-    }
-
 //    "^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$"
     public void validarMes() {
         do {

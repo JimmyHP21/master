@@ -32,8 +32,8 @@ public class Erros {
     private final String ERRO_NUMERO_PADRAO = "Digite apenas Numeros!! Digite Novamente: ";
     private final String ERRO_STRING_PADRAO = "Digite apenas letras!! Digite Novamente: ";
     private final String ERRO_DATA_PADRAO = "Data Invalida!! Digite Novamente";
-    private final String ERRO_TAMANHO_DATA ="Data incorreta digite conforme mm/dd/aaaa!! Digite Novamente: ";
-    private final String ERRO_TAMANHO_PADRAO = "Tamanho da Informções invalidas!! Digite Novamente: "; 
+    private final String ERRO_TAMANHO_DATA = "Data incorreta digite conforme mm/dd/aaaa!! Digite Novamente: ";
+    private final String ERRO_TAMANHO_PADRAO = "Tamanho da Informções invalidas!! Digite Novamente: ";
     private final String ERRO_DIA_JANEIRO = "Dia informado invalido!! Digite um dia correto (1 - 31)";
     private final String ERRO_DIA_FEVEREIRO = "Dia informado invalido!! Digite um dia correto (1 - 28)";
     private final String ERRO_DIA_MARCO = "Dia informado invalido!! Digite um dia correto (1 - 31)";
@@ -47,37 +47,52 @@ public class Erros {
     private final String ERRO_DIA_NOVEMBRO = "Dia informado invalido!! Digite um dia correto (1 - 30)";
     private final String ERRO_DIA_DEZEMBRO = "Dia informado invalido!! Digite um dia correto (1 - 31)";
     private final String ERRO_MES_INVALIDO = "Digite um mês valido (1 - 12)!! Digite Novamente: ";
-    private final String ERRO_ANO_INVALIDO1 ="Ano Invalido, Dado Superior ao atual!! Digite Novamante: ";
-    private final String ERRO_ANO_INVALIDO2 ="Ano Invalido Digite conforme DIA/MES/XXXX!! Digite Novamente: ";
-    private final String ERRO_DIA_INVALIDO ="Dia Invalido Digite conforme XX/MES/ANO!! Digite Novamente: ";
+    private final String ERRO_ANO_INVALIDO1 = "Ano Invalido, Dado Superior ao atual!! Digite Novamante: ";
+    private final String ERRO_ANO_INVALIDO2 = "Ano Invalido Digite conforme DIA/MES/XXXX!! Digite Novamente: ";
+    private final String ERRO_DIA_INVALIDO = "Dia Invalido Digite conforme XX/MES/ANO!! Digite Novamente: ";
     private final String ERRO_LIMITE = "Limite não pode ser 0!! Digite Novamente: ";
     private final String ERRO_DATA_PADRAO_FORMATO = "Digite a Data no Formato dd/mm/aaaa !!Digite Novamente: ";
     private final String ERRO_FONE = "Telefone invalido!! Digite Novamente:";
     private final String ERRO_RG = "RG Invalido!! Digite Novamente: ";
     private final String ERRO_PARCELAS = "Numero de parcelas invalidos!! Digite Novamente: ";
     private final String ERRO_GERAR_BOLETO = "ERRO AO GERAR BOLETO!! ENTRE EM CONTATO COM O SUPORTE";
+    public final String ERRO_PESSOA_NAO_ENCONTRADA = "Pessoa não encontrada na base de dados!!";
+    public final String ERRO_CODIGO_NAO_ENCONTRADO = "Código não encontrado na base de dados!!";
+    public final String ERRO_POSICAO_INVALIDA = "Posição Invalida!! Digite Novamente!";
     
-    public String getERRO_GERAR_BOLETO(){
+    public String getERRO_POSICAO_INVALIDA(){
+        return ERRO_POSICAO_INVALIDA;
+    }
+    
+    public String getERRO_CODIGO_NAO_ENCONTRADO(){
+        return ERRO_CODIGO_NAO_ENCONTRADO;
+    }
+    
+    public String getERRO_PESSOA_NAO_ENCONTRADA(){
+        return ERRO_PESSOA_NAO_ENCONTRADA;
+    }
+    
+    public String getERRO_GERAR_BOLETO() {
         return ERRO_GERAR_BOLETO;
     }
 
-    public String getERRO_PARCELAS(){
+    public String getERRO_PARCELAS() {
         return ERRO_PARCELAS;
     }
-    
-    public String getERRO_RG(){
+
+    public String getERRO_RG() {
         return ERRO_RG;
     }
-    
-    public String getERRO_FONE(){
+
+    public String getERRO_FONE() {
         return ERRO_FONE;
     }
-    
-    public String getERRO_DATA_PADRAO_FORMATO(){
+
+    public String getERRO_DATA_PADRAO_FORMATO() {
         return ERRO_DATA_PADRAO_FORMATO;
     }
-    
-    public String getERRO_LIMITE(){
+
+    public String getERRO_LIMITE() {
         return ERRO_LIMITE;
     }
 
@@ -85,7 +100,6 @@ public class Erros {
         return ERRO_DIA_INVALIDO;
     }
 
-    
     public String getERRO_ANO_INVALIDO1() {
         return ERRO_ANO_INVALIDO1;
     }
@@ -94,7 +108,6 @@ public class Erros {
         return ERRO_ANO_INVALIDO2;
     }
 
-    
     public String getERRO_DIA_JANEIRO() {
         return ERRO_DIA_JANEIRO;
     }
@@ -146,29 +159,28 @@ public class Erros {
     public String getERRO_MES_INVALIDO() {
         return ERRO_MES_INVALIDO;
     }
-    
-    
-    public String getERRO_TAMANHO_PADRAO(){
+
+    public String getERRO_TAMANHO_PADRAO() {
         return ERRO_TAMANHO_PADRAO;
     }
-    
-    public String getERRO_TAMANHO_DATA(){
+
+    public String getERRO_TAMANHO_DATA() {
         return ERRO_TAMANHO_DATA;
     }
-    
-    public String getERRO_DATA_PADRAO(){
+
+    public String getERRO_DATA_PADRAO() {
         return ERRO_DATA_PADRAO;
     }
-    
-    public String getERRO_STRING_PADRAO(){
+
+    public String getERRO_STRING_PADRAO() {
         return ERRO_STRING_PADRAO;
     }
-    
-    public String getERRO_NUMERO_PADRAO(){
+
+    public String getERRO_NUMERO_PADRAO() {
         return ERRO_NUMERO_PADRAO;
     }
-    
-    public String getERRO_INSCEST(){
+
+    public String getERRO_INSCEST() {
         return ERRO_INSCEST;
     }
 
